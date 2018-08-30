@@ -2,10 +2,9 @@
   <div class="card-wrapper">
     <div
       v-if="!_card.isGuessed"
-      class="card"
-      :class="{'guessed' : _card.isGuessed}"
-      @click="$emit('cardClick', _card)">
+      class="card">
       <div v-if="!_card.isOpen"
+        @click="$emit('cardClick', _card)"
         class="back">
       </div>
       <div
