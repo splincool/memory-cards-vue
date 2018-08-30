@@ -54,4 +54,22 @@ export default {
   align-items: center;
   font-weight: bold;
 }
+@media only screen and (max-width: 414px) {
+  .card-wrapper {
+    width: 95px;
+    height: 95px;
+  }
+}
+@media only screen and (max-width: 375px) {
+  .card-wrapper {
+    width: 83px;
+    height: 83px;
+  }
+}
+@media only screen and (max-width: 320px) {
+  .card-wrapper {
+    width: 70px;
+    height: 70px;
+  }
+}
 </style>

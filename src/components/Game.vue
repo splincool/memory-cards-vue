@@ -1,7 +1,7 @@
 <template>
   <div class="game">
     <div class="info-panel">
-      <template v-if="isGameStart">
+      <template v-if="isGameStarted">
         <div class="time">Time: {{clock}} </div>
         <div class="moves">Moves: {{moves}}</div>
       </template>
@@ -23,6 +23,14 @@
           @cardClick="onCardClick"/>
       </template>
     </div>
+    <div v-if="isGameFinished"
+      class="overlay-box">
+       <div 
+        class="play-again-btn" 
+        @click="onPlayAgain">
+          Play Again?
+      </div>
+    </div>
   </div>
 </template>
 
@@ -37,7 +45,9 @@ export default {
       openCards: [],
       moves: 0,
       clockCount: 0,
-      isGameStart: false
+      isGameStarted: false,
+      isGameFinished: false,
+      guessedCardsPairs: 0
     }
   },
   created () {
@@ -49,6 +59,12 @@ export default {
         this.timeout = setTimeout(() => {
           this.compareCards()
         }, 500);
+      }
+    },
+    guessedCardsPairs (_val) {
+      if (_val === 8) {
+        clearTimeout(this.timeoutClock)
+        this.isGameFinished = true
       }
     }
   },
@@ -64,7 +80,10 @@ export default {
       }
     },
     onStart () {
-      this.isGameStart = true
+      this.isGameStarted = true
+    },
+    onPlayAgain () {
+      location.reload();
     },
     onCardClick (_card) {
       for (let card of this.cards) {
@@ -83,6 +102,7 @@ export default {
             card.isGuessed = true
           }
         }
+        this.guessedCardsPairs += 1
       } else {
         for (let card of this.cards) {
           if ((card.name === cardOne.name) || (card.name === cardTwo.name)) {
@@ -137,12 +157,42 @@ export default {
     height: 450px;
     width: 500px;
   }
-  .start-btn {
+  .start-btn,
+  .play-again-btn {
     background: #111;
     color: #fff;
     font-size: 25px;
     font-weight: bold;
     padding: 40px 60px;
     cursor: pointer;
+  }
+
+  @media only screen and (max-width: 414px) {
+    .game {
+      width: 400px;
+    }
+    .overlay-box {
+      height: 420px;
+      width: 400px;
+    }
+  }
+
+  @media only screen and (max-width: 375px) {
+    .game {
+      width: 350px;
+    }
+    .overlay-box {
+      height: 372px;
+      width: 350px;
+    }
+  }
+  @media only screen and (max-width: 320px) {
+    .game {
+      width: 300px;
+    }
+    .overlay-box {
+      height: 325px;
+      width: 300px;
+    }
   }
 </style>
