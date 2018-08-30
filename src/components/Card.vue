@@ -1,17 +1,22 @@
 <template>
-  <div
-    class="card"
-    :class="{'guessed' : _card.isGuessed}"
-    @click="$emit('cardClick', _card)">
-    <div v-if="!_card.isOpen"
-      class="back">
-    </div>
+  <div class="card-wrapper">
     <div
-      v-else
-      class="front">
-      {{_card.name}}
+      v-if="!_card.isGuessed"
+      class="card"
+      :class="{'guessed' : _card.isGuessed}"
+      @click="$emit('cardClick', _card)">
+      <div v-if="!_card.isOpen"
+        class="back">
+      </div>
+      <div
+        v-else
+        class="front"
+        :style="{'background': _card.color}">
+        {{_card.name}}
+      </div>
     </div>
-  </div>
+    <div v-else class="empty-card"></div>
+    </div>
 </template>
 
 <script>
@@ -25,19 +30,28 @@ export default {
 </script>
 
 <style>
-.card {
+.card-wrapper {
   width: 100px;
   height: 100px;
-  background: red;
   margin: 5px 0;
+}
+.card {
+  height: 100%;
   cursor: pointer;
 }
 .card .back {
-  background: lightgreen;
+  background: #a593c6;
   height: 100%;
+  border-radius: 6px;
 }
 .card .front {
   background: lightsalmon;
   height: 100%;
+  border-radius: 6px;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
 }
 </style>
