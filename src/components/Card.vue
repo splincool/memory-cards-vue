@@ -2,10 +2,9 @@
   <div
     class="card"
     :class="{'guessed' : _card.isGuessed}"
-    @click="$emit('cardClick', _card.id)">
+    @click="$emit('cardClick', _card)">
     <div v-if="!_card.isOpen"
       class="back">
-
     </div>
     <div
       v-else

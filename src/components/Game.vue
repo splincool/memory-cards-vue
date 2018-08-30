@@ -22,12 +22,14 @@ export default {
   },
   created () {
     this.shuffleCards()
+
   },
   watch: {
     openCards (_val) {
-      debugger
       if (_val.length === 2) {
-        this.compareCards()
+        this.timeout = setTimeout(() => {
+          this.compareCards()
+        }, 500);
       }
     }
   },
@@ -42,17 +44,13 @@ export default {
         this.cards[randomIndex] = temp
       }
     },
-    checkCard (_idx) {
-      return true
-    },
-    onCardClick (_id) {
+    onCardClick (_card) {
       for (let card of this.cards) {
-        if (card.id === _id) {
+        if (card.id === _card.id) {
           card.isOpen = true
-          this.openCards.push(card)
-          console.log(this.openCards)
         }
       }
+      this.openCards.push(_card)
     },
     compareCards () {
       var cardOne = this.openCards[0]
@@ -71,6 +69,7 @@ export default {
         }
       }
       this.openCards = []
+      clearTimeout(this.timeout)
     }
   },
   computed: {
