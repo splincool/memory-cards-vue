@@ -1,6 +1,6 @@
 module.exports = {
   // options...
-  baseUrl: process.env.NODE_ENV === 'production' ? '/memory-cards/' : '/',
+  baseUrl: process.env.NODE_ENV === 'production' ? 'projects/memory-cards/' : '/',
 
   // Other options include:
   outputDir: undefined,
